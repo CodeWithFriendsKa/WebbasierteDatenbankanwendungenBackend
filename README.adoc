@@ -1,0 +1,14 @@
+IMPORTANT: Um dieses sutdentische Projekt zum laufen zu bringen bite folgende Anweisungen ausführen:
+
+    1) Repo clonen
+    2) H2 Datenbank mit default-config installieren
+    2) Application von der IDE starten oder mit mvn spring-boot:run
+
+NOTE: REST API Dokumentation:
+
+    Root-Path: http://localhost:8080
+    (Wenn du es lokal auf deiner Maschine laufen lässt :D)
+
+    Calculator Operationen:
+
+    User Operation
