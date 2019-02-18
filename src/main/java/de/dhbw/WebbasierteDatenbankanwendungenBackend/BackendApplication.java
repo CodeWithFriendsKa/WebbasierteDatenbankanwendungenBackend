@@ -23,29 +23,59 @@ public class BackendApplication {
 
 	/**
 	 * Einfügen von Demodaten für Spieler in die Datenbank
-	 * Demo Spieler 1: "max.mustermann@dhbw.de", "123"
+	 * Demo Spieler 1: "max1.mustermann@dhbw.de", "123"
+	 * Demo Spieler 2: "max2.mustermann@dhbw.de", "123"
+	 * Demo Spieler 3: "max3.mustermann@dhbw.de", "123"
+	 * Demo Spieler 4: "max4.mustermann@dhbw.de", "123"
+	 * Demo Spieler 5: "max5.mustermann@dhbw.de", "123"
 	 */
 
 	@Bean
-	protected CommandLineRunner demoSpieler(SpielerRepo spielerRepo) {
+	protected CommandLineRunner demoSpielerEinfügen(SpielerRepo spielerRepo) {
 		return(args) -> {
-			SpielerEntity s1 = new SpielerEntity("max.mustermann@dhbw.de", "123");
+			SpielerEntity s1 = new SpielerEntity("max1.mustermann@dhbw.de", "123");
 			spielerRepo.save(s1);
-			logger.debug("Demospieler eingefügt: {}",spielerRepo.findSpielerEntityByMail("max.mustermann@dhbw.de"));
+			logger.debug("Demospieler eingefügt: {}",spielerRepo.findSpielerEntityByMail("max1.mustermann@dhbw.de"));
+
+			SpielerEntity s2 = new SpielerEntity("max2.mustermann@dhbw.de", "123");
+			spielerRepo.save(s2);
+			logger.debug("Demospieler eingefügt: {}",spielerRepo.findSpielerEntityByMail("max2.mustermann@dhbw.de"));
+
+			SpielerEntity s3 = new SpielerEntity("max3.mustermann@dhbw.de", "123");
+			spielerRepo.save(s3);
+			logger.debug("Demospieler eingefügt: {}",spielerRepo.findSpielerEntityByMail("max3.mustermann@dhbw.de"));
+
+			SpielerEntity s4 = new SpielerEntity("max4.mustermann@dhbw.de", "123");
+			spielerRepo.save(s4);
+			logger.debug("Demospieler eingefügt: {}",spielerRepo.findSpielerEntityByMail("max4.mustermann@dhbw.de"));
+
+			SpielerEntity s5 = new SpielerEntity("max5.mustermann@dhbw.de", "123");
+			spielerRepo.save(s5);
+			logger.debug("Demospieler eingefügt: {}",spielerRepo.findSpielerEntityByMail("max5.mustermann@dhbw.de"));
 		};
 	}
 
 	/**
 	 * Einfügen von Demodaten für Trainer in die Datenbank
-	 * Demo Trainer 1: "tim.trainer@dhbw.de", "123"
+	 * Demo Trainer 1: "tim1.trainer@dhbw.de", "123"
+	 * Demo Trainer 2: "tim2.trainer@dhbw.de", "123"
+	 * Demo Trainer 3: "tim3.trainer@dhbw.de", "123"
 	 */
 
 	@Bean
-	protected CommandLineRunner demoTrainer(TrainerRepo trainerRepo) {
+	protected CommandLineRunner demoTrainerEinfügen(TrainerRepo trainerRepo) {
 		return(args) -> {
-			TrainerEntity s1 = new TrainerEntity("tim.trainer@dhbw.de", "123");
+			TrainerEntity s1 = new TrainerEntity("tim1.trainer@dhbw.de", "123");
 			trainerRepo.save(s1);
-			logger.debug("Demotrainer eingefügt: {}",trainerRepo.findTrainerEntityByMail("tim.trainer@dhbw.de"));
+			logger.debug("Demotrainer eingefügt: {}",trainerRepo.findTrainerEntityByMail("tim1.trainer@dhbw.de"));
+
+			TrainerEntity s2 = new TrainerEntity("tim2.trainer@dhbw.de", "123");
+			trainerRepo.save(s2);
+			logger.debug("Demotrainer eingefügt: {}",trainerRepo.findTrainerEntityByMail("tim2.trainer@dhbw.de"));
+
+			TrainerEntity s3 = new TrainerEntity("tim3.trainer@dhbw.de", "123");
+			trainerRepo.save(s3);
+			logger.debug("Demotrainer eingefügt: {}",trainerRepo.findTrainerEntityByMail("tim3.trainer@dhbw.de"));
 		};
 	}
 

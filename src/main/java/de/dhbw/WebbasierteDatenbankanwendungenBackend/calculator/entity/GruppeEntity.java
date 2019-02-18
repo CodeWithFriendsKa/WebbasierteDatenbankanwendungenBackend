@@ -3,13 +3,13 @@ package de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.entity;
 
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity.SpielerEntity;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity.TrainerEntity;
+import org.springframework.data.repository.cdi.Eager;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class GruppeEntity {
 
     @Id
@@ -17,8 +17,9 @@ public class GruppeEntity {
     private Long id;
     private String platz;
     private String zeit;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<SpielerEntity> spielerListe;
+    @ManyToOne
     private TrainerEntity trainer;
 
     public GruppeEntity() {}
