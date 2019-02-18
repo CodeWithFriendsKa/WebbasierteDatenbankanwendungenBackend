@@ -23,6 +23,5 @@ public class SpielerService {
         else {
             throw new DbDuplikatException("Spieler mit Mail-Adresse bereits vorhanden.");
         }
-
     }
 }

@@ -7,14 +7,14 @@ import java.util.Objects;
 
 @Entity
 public class TrainerEntity {
+
     @Id
     @GeneratedValue
-    Long id;
-    String mail;
-    String passwort;
+    private Long id;
+    private String mail;
+    private String passwort;
 
-    public TrainerEntity() {
-    }
+    private TrainerEntity() {}
 
     public TrainerEntity(String mail, String passwort) {
         this.mail = mail;
@@ -34,6 +34,15 @@ public class TrainerEntity {
     }
 
     @Override
+    public String toString() {
+        return "TrainerEntity{" +
+                "id=" + id +
+                ", mail='" + mail + '\'' +
+                ", passwort='" + passwort + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -47,15 +56,4 @@ public class TrainerEntity {
     public int hashCode() {
         return Objects.hash(id, mail, passwort);
     }
-
-    @Override
-    public String toString() {
-        return "TrainerEntity{" +
-                "id=" + id +
-                ", mail='" + mail + '\'' +
-                ", passwort='" + passwort + '\'' +
-                '}';
-    }
-
-
 }

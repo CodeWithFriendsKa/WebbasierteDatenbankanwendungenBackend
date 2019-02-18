@@ -5,6 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface SpielerRepo extends CrudRepository<SpielerEntity,Long> {
 
-    public SpielerEntity findSpielerEntityByMail(String mail);
-
+    SpielerEntity findSpielerEntityByMail(String mail);
 }

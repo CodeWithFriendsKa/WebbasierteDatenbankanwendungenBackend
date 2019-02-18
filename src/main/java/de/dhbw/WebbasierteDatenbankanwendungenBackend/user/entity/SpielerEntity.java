@@ -10,12 +10,11 @@ public class SpielerEntity {
 
     @Id
     @GeneratedValue
-    Long id;
-    String mail;
-    String passwort;
+    private Long id;
+    private String mail;
+    private String passwort;
 
-    public SpielerEntity() {
-    }
+    private SpielerEntity() {}
 
     public SpielerEntity(String mail, String passwort) {
         this.mail = mail;
@@ -35,6 +34,15 @@ public class SpielerEntity {
     }
 
     @Override
+    public String toString() {
+        return "SpielerEntity{" +
+                "id=" + id +
+                ", mail='" + mail + '\'' +
+                ", passwort='" + passwort + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -47,14 +55,5 @@ public class SpielerEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, mail, passwort);
-    }
-
-    @Override
-    public String toString() {
-        return "SpielerEntity{" +
-                "id=" + id +
-                ", mail='" + mail + '\'' +
-                ", passwort='" + passwort + '\'' +
-                '}';
     }
 }

@@ -14,5 +14,4 @@ public class TrainerService {
     public TrainerEntity getTrainerByMail(String mail) {
         return trainerRepo.findTrainerEntityByMail(mail);
     }
-
 }
