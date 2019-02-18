@@ -1,10 +1,7 @@
 package de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.entity;
 
-
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity.SpielerEntity;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity.TrainerEntity;
-import org.springframework.data.repository.cdi.Eager;
-
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;

@@ -1,8 +1,8 @@
 package de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.repository.SpielerRepo;
+
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity

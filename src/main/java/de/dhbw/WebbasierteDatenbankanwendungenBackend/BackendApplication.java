@@ -1,5 +1,7 @@
 package de.dhbw.WebbasierteDatenbankanwendungenBackend;
 
+import de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.entity.GruppeEntity;
+import de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.repository.GruppeRepo;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity.SpielerEntity;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity.TrainerEntity;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.repository.SpielerRepo;
@@ -29,10 +31,9 @@ public class BackendApplication {
 	 * Demo Spieler 4: "max4.mustermann@dhbw.de", "123"
 	 * Demo Spieler 5: "max5.mustermann@dhbw.de", "123"
 	 */
-
 	@Bean
 	protected CommandLineRunner demoSpielerEinfügen(SpielerRepo spielerRepo) {
-		return(args) -> {
+		return args -> {
 			SpielerEntity s1 = new SpielerEntity("max1.mustermann@dhbw.de", "123");
 			spielerRepo.save(s1);
 			logger.debug("Demospieler eingefügt: {}",spielerRepo.findSpielerEntityByMail("max1.mustermann@dhbw.de"));
@@ -61,10 +62,9 @@ public class BackendApplication {
 	 * Demo Trainer 2: "tim2.trainer@dhbw.de", "123"
 	 * Demo Trainer 3: "tim3.trainer@dhbw.de", "123"
 	 */
-
 	@Bean
 	protected CommandLineRunner demoTrainerEinfügen(TrainerRepo trainerRepo) {
-		return(args) -> {
+		return args -> {
 			TrainerEntity s1 = new TrainerEntity("tim1.trainer@dhbw.de", "123");
 			trainerRepo.save(s1);
 			logger.debug("Demotrainer eingefügt: {}",trainerRepo.findTrainerEntityByMail("tim1.trainer@dhbw.de"));
@@ -78,6 +78,25 @@ public class BackendApplication {
 			logger.debug("Demotrainer eingefügt: {}",trainerRepo.findTrainerEntityByMail("tim3.trainer@dhbw.de"));
 		};
 	}
+
+	/***
+	 * Einfügen von Demodaten für Gruppen in die Datenbank
+	 * Demo Gruppe 1:
+	 */
+	@Bean
+	protected CommandLineRunner demoGruppenEinfügen(GruppeRepo gruppeRepo, SpielerRepo spielerRepo, TrainerRepo trainerRepo){
+		return args -> {
+			GruppeEntity g1 = new GruppeEntity(
+					"Platz 1",
+					"Montag 16:00 - 18:00 Uhr",
+					spielerRepo.findAll(),
+					trainerRepo.findTrainerEntityByMail("tim1.trainer@dhbw.de")
+			);
+			gruppeRepo.save(g1);
+			logger.debug("Demogruppe eingefügt: {}", gruppeRepo.findAll());
+		};
+	}
+
 
 }
 
