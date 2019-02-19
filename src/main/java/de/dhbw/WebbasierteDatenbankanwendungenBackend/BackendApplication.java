@@ -13,6 +13,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @SpringBootApplication
 public class BackendApplication {
@@ -82,21 +85,36 @@ public class BackendApplication {
 	/***
 	 * Einfügen von Demodaten für Gruppen in die Datenbank
 	 * Demo Gruppe 1:
+	 * Demo Gruppe 2:
 	 */
 	@Bean
 	protected CommandLineRunner demoGruppenEinfügen(GruppeRepo gruppeRepo, SpielerRepo spielerRepo, TrainerRepo trainerRepo){
 		return args -> {
+			List<SpielerEntity> spielerListe1 = new ArrayList<>();
+			spielerListe1.add(spielerRepo.findSpielerEntityByMail("max1.mustermann@dhbw.de"));
+			spielerListe1.add(spielerRepo.findSpielerEntityByMail("max2.mustermann@dhbw.de"));
+			spielerListe1.add(spielerRepo.findSpielerEntityByMail("max3.mustermann@dhbw.de"));
 			GruppeEntity g1 = new GruppeEntity(
 					"Platz 1",
 					"Montag 16:00 - 18:00 Uhr",
-					spielerRepo.findAll(),
+					spielerListe1,
 					trainerRepo.findTrainerEntityByMail("tim1.trainer@dhbw.de")
 			);
 			gruppeRepo.save(g1);
 			logger.debug("Demogruppe eingefügt: {}", gruppeRepo.findAll());
+
+			List<SpielerEntity> spielerListe2 = new ArrayList<>();
+			spielerListe2.add(spielerRepo.findSpielerEntityByMail("max4.mustermann@dhbw.de"));
+			spielerListe2.add(spielerRepo.findSpielerEntityByMail("max5.mustermann@dhbw.de"));
+			GruppeEntity g2 = new GruppeEntity(
+					"Platz 1",
+					"Montag 16:00 - 18:00 Uhr",
+					spielerListe2,
+					trainerRepo.findTrainerEntityByMail("tim2.trainer@dhbw.de")
+			);
+			gruppeRepo.save(g2);
+			logger.debug("Demogruppe eingefügt: {}", gruppeRepo.findAll());
 		};
 	}
-
-
 }
 

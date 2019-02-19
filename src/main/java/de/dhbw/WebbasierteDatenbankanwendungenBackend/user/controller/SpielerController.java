@@ -1,7 +1,9 @@
 package de.dhbw.WebbasierteDatenbankanwendungenBackend.user.controller;
 
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity.SpielerEntity;
+import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.authentification.AuthorizationException;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.DbDuplikatException;
+import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.SpielerNotFoundException;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.SpielerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,26 +16,24 @@ public class SpielerController {
     @Autowired
     SpielerService spielerService;
 
-    @RequestMapping(method = RequestMethod.GET,value = "/spieler/{mail}")
-    public SpielerEntity getSpielerByMail(@PathVariable(value = "mail") String mail) {
-        SpielerEntity spielerEntity = spielerService.getSpielerByMail(mail);
-
-        if(spielerEntity != null) {
-            return spielerService.getSpielerByMail(mail);
+    @RequestMapping(method = RequestMethod.GET, value = "/spieler/{mail}")
+    public SpielerEntity getSpielerByMail(@PathVariable(value = "mail") String mail, @RequestHeader(value = "Authorization") String authorization) {
+        try {
+            return spielerService.getSpielerByMail(mail, authorization);
+        } catch (SpielerNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
         }
-        else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Spieler nicht gefunden.");
-
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "/spieler")
+    @RequestMapping(method = RequestMethod.POST, value = "/spieler")
     public void postSpielerEntity(@RequestBody SpielerEntity spielerEntity) {
         try {
             spielerService.postSpieler(spielerEntity);
-        }
-        catch(DbDuplikatException e) {
+        } catch (DbDuplikatException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
-
     }
 
 }

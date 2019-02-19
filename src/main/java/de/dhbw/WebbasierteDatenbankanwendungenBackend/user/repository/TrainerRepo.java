@@ -6,4 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface TrainerRepo extends CrudRepository<TrainerEntity,Long> {
 
     TrainerEntity findTrainerEntityByMail(String mail);
+
+    boolean existsTrainerEntityByMailAndPasswort(String mail, String passwort);
 }
