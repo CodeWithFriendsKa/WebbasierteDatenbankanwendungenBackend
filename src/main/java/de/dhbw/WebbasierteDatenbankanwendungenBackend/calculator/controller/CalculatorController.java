@@ -10,13 +10,14 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class CalculatorController {
 
     @Autowired
     private CalculatorService calculatorService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/Gruppen")
+    @RequestMapping(method = RequestMethod.GET, value = "/gruppen")
     public List<GruppeEntity> findAllGruppen(@RequestHeader(value = "Authorization") String authorization){
         try {
             return calculatorService.findAllGruppen(authorization);
@@ -29,7 +30,7 @@ public class CalculatorController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/Gruppen/{mail}")
+    @RequestMapping(method = RequestMethod.GET, value = "/gruppen/{mail}")
     public GruppeEntity findGruppeBySpielerMail(@PathVariable(value = "mail") String mail, @RequestHeader(value = "Authorization") String authorization){
         try {
             return calculatorService.findGruppeBySpielerMail(mail, authorization);

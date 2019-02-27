@@ -9,6 +9,26 @@ NOTE: REST API Dokumentation:
     Root-Path: http://localhost:8080
     (Wenn du es lokal auf deiner Maschine laufen lässt :D)
 
-    Calculator Operationen:
+    CALCULATOR API
+    1) Alle Grupppen holen:
+    GET http://localhost:8080/Gruppen
+    Diese Funktionalität können nur Trainer nutzen
+    2) Gruppe eines Spielers anhand seiner Mail holen:
+    GET http://localhost:8080/Gruppen/{mail}
+    Diese Funktionalität dürfen Trainer und Spieler nutzen,
+    Spieler dürfen aber nur ihre eigene Gruppe einsehen
 
-    User Operation
+    USER API
+    1) Alle Spieler holen:
+    http://localhost:8080/Gruppen
+    Diese Funktionalität dürfen nut Trainer nutzen
+    2) Einen Spieler anhand seiner Mail holen:
+    GET http://localhost:8080/spieler/{mail}
+    Diese Funktioalität dürfen Trainer und Spieler nutzen,
+    Sieler dürfen aber nur ihre eigenen Daten holen
+    3) Einen neuen Spieler hinzufügen
+    POST http://localhost:8080/spieler + RequestBody Spieler JSON
+    Jeder darf sich als Spieler anmelden
+    4) Einen Trainer anhand seiner Mail holen
+    GET http://localhost:8080/trainer/{mail}
+    Diese Funktionalität darf nur ein Trainer für sich nutzen
