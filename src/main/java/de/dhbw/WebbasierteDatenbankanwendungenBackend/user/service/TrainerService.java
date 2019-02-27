@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class TrainerService extends AuthentificationService {
 
+    //Zufälliger Code, der den Trainern zur Registrierung mitgeteilt wird
+    final private String registerCode = "uvysMXDWkPP2LJ4b";
+
     @Autowired
     TrainerRepo trainerRepo;
 
@@ -51,13 +54,19 @@ public class TrainerService extends AuthentificationService {
      * 2) Wenn erfolgreich speichere den neuen Trainer in der Datenbank
      */
 
-    public void postTrainer(TrainerEntity trainerEntity) throws DbDuplikatException{
-        TrainerEntity trainer = trainerRepo.findTrainerEntityByMail(trainerEntity.getMail());
-        if(trainer == null) {
-            trainerRepo.save(trainerEntity);
+    public void postTrainer(TrainerEntity trainerEntity, String registerCode) throws DbDuplikatException, WrongCodeException{
+        if(this.registerCode.equals(registerCode)) {
+            TrainerEntity trainer = trainerRepo.findTrainerEntityByMail(trainerEntity.getMail());
+            if(trainer == null) {
+                trainerRepo.save(trainerEntity);
+            }
+            else {
+                throw new DbDuplikatException("Trainer mit der Mail-Adresse ist bereits vorhanden.");
+            }
         }
         else {
-            throw new DbDuplikatException("Trainer mit der Mail-Adresse ist bereits vorhanden.");
+            throw new WrongCodeException("Der korrekte Registrierungscode für Trainer muss in die URL-Leiste (.../trainer/<CODE> ) eingetragen werden.");
         }
+
     }
 }

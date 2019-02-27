@@ -5,6 +5,7 @@ import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity.TrainerEntity;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.DbDuplikatException;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.TrainerNotFoundException;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.TrainerService;
+import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.WrongCodeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -52,12 +53,14 @@ public class TrainerController {
      * Um den Trainer in die Datenbank einzufügen wird vom Serviceobjekt die Mehtode postTrainer aufgerufen
      * Wird in der Serviceklasse eine "DuplikatException" geworfen, so wird diese hier abgefangen und dem Aufrufenden mitgeteilt, dass der Trainer bereits einen Account hat
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/trainer")
-    public void postTrainerEntity(@RequestBody TrainerEntity trainerEntity) {
+    @RequestMapping(method = RequestMethod.POST, value = "/trainer/{registerCode}")
+    public void postTrainerEntity(@PathVariable(value = "registerCode") String registerCode, @RequestBody TrainerEntity trainerEntity) {
         try {
-            trainerService.postTrainer(trainerEntity);
+            trainerService.postTrainer(trainerEntity, registerCode);
         } catch (DbDuplikatException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (WrongCodeException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
         }
     }
 
