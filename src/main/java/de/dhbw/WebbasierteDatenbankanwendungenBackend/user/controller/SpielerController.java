@@ -7,6 +7,7 @@ import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.SpielerNotFou
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.SpielerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -50,7 +51,7 @@ public class SpielerController {
      * Wird in der Serviceklasse eine "DuplikatException" geworfen, so wird diese hier abgefangen und dem Aufrufenden mitgeteilt, dass der Spieler bereits einen Account hat
      */
     @RequestMapping(method = RequestMethod.POST, value = "/spieler")
-    public void postSpielerEntity(@RequestBody SpielerEntity spielerEntity) {
+    public void postSpielerEntity(@Validated @RequestBody SpielerEntity spielerEntity) {
         try {
             spielerService.postSpieler(spielerEntity);
         } catch (DbDuplikatException e) {

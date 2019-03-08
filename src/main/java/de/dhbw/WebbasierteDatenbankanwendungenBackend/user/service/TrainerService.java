@@ -7,6 +7,9 @@ import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.repository.TrainerRep
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.RollbackException;
+import javax.validation.ValidationException;
+
 @Service
 public class TrainerService extends AuthentificationService {
 
@@ -54,7 +57,7 @@ public class TrainerService extends AuthentificationService {
      * 2) Wenn erfolgreich speichere den neuen Trainer in der Datenbank
      */
 
-    public void postTrainer(TrainerEntity trainerEntity, String registerCode) throws DbDuplikatException, WrongCodeException{
+    public void postTrainer(TrainerEntity trainerEntity, String registerCode) throws DbDuplikatException, WrongCodeException, RollbackException {
         if(this.registerCode.equals(registerCode)) {
             TrainerEntity trainer = trainerRepo.findTrainerEntityByMail(trainerEntity.getMail());
             if(trainer == null) {
