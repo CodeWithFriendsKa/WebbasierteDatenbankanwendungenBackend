@@ -4,15 +4,16 @@ import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.authentification.Auth
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.authentification.AuthorizationException;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity.TrainerEntity;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.repository.TrainerRepo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.RollbackException;
-import javax.validation.ValidationException;
 
 @Service
 public class TrainerService extends AuthentificationService {
 
+    private final Logger logger = LoggerFactory.getLogger(SpielerService.class);
     //Zufälliger Code, der den Trainern zur Registrierung mitgeteilt wird
     final private String registerCode = "gruppeEinsIsTheBest";
 
@@ -35,6 +36,7 @@ public class TrainerService extends AuthentificationService {
         if(this.checkAuthTrainer(authorization)) {
             TrainerEntity trainerEntity = trainerRepo.findTrainerEntityByMail(mail);
             if(trainerEntity != null) {
+                logger.debug("getTrainerByMail: gefundener Trainer: {}", trainerEntity);
                 return trainerEntity;
             }
             else {
@@ -57,10 +59,11 @@ public class TrainerService extends AuthentificationService {
      * 2) Wenn erfolgreich speichere den neuen Trainer in der Datenbank
      */
 
-    public void postTrainer(TrainerEntity trainerEntity, String registerCode) throws DbDuplikatException, WrongCodeException, RollbackException {
+    public void postTrainer(TrainerEntity trainerEntity, String registerCode) throws DbDuplikatException, WrongCodeException {
         if(this.registerCode.equals(registerCode)) {
             TrainerEntity trainer = trainerRepo.findTrainerEntityByMail(trainerEntity.getMail());
             if(trainer == null) {
+                logger.debug("postTrainer: Neuer Trainer in Datenbank eingefügt: {}", trainerEntity);
                 trainerRepo.save(trainerEntity);
             }
             else {

@@ -5,6 +5,8 @@ import de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.repository.Grup
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.authentification.AuthentificationService;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.authentification.AuthorizationException;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity.SpielerEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +17,13 @@ public class CalculatorService extends AuthentificationService {
 
     @Autowired
     GruppeRepo gruppeRepo;
+    private final Logger logger = LoggerFactory.getLogger(CalculatorService.class);
 
     public List<GruppeEntity> findAllGruppen(String authorization) throws GruppeNotFoundException, AuthorizationException {
         if (this.checkAuthTrainer(authorization)) {
             var gruppen = gruppeRepo.findAll();
             if (gruppen != null) {
+                logger.debug("findAllGruppen: Gruppe/n wurde/n gefunden");
                 return gruppen;
             } else {
                 throw new GruppeNotFoundException("Die Gruppen wurden nicht gefunden");
@@ -34,7 +38,10 @@ public class CalculatorService extends AuthentificationService {
             var gruppen = gruppeRepo.findAll();
             for (GruppeEntity gruppeEntity : gruppen) {
                 for (SpielerEntity spielerEntity : gruppeEntity.getSpielerListe()) {
-                    if (spielerEntity.getMail().equals(mail)) return gruppeEntity;
+                    if (spielerEntity.getMail().equals(mail)) {
+                        logger.debug("findGruppeBySpielerMail gefundene Gruppe: {}", gruppeEntity);
+                        return gruppeEntity;
+                    }
                 }
             }
             throw new GruppeNotFoundException("Gruppe des Spielers wurde nicht gefunden!");

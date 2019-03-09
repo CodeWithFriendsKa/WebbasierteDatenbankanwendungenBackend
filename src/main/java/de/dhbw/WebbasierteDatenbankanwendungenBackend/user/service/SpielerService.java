@@ -33,6 +33,7 @@ public class SpielerService extends AuthentificationService {
         if (this.checkAuthGetSpielerByMail(authorization, mail)) {
             SpielerEntity spielerEntity = spielerRepo.findSpielerEntityByMail(mail);
             if (spielerEntity != null) {
+                logger.debug("getSpielerByMail: gefundener Spieler: {}", spielerEntity);
                 return spielerEntity;
             } else {
                 throw new SpielerNotFoundException("Der Spieler wurde nicht in der Datenbank gefunden");

@@ -33,7 +33,7 @@ public abstract class AuthentificationService {
      */
     protected boolean checkAuthTrainer(String base64){
         String[] mailPassword = getMailPasswort(base64);
-        logger.debug("String 0 (Mail):  {}, String 1 (Passwort): {}", mailPassword[0], mailPassword[1]);
+        logger.debug("checkAuthTrainer: Mail: {}, Passwort: {}", mailPassword[0], mailPassword[1]);
         if(trainerRepo.existsTrainerEntityByMailAndPasswort(mailPassword[0],mailPassword[1])){
             return true;
         }
@@ -52,7 +52,7 @@ public abstract class AuthentificationService {
             return true;
         }
         String[] mailPasswort = getMailPasswort(base64);
-        logger.debug("String 0 (Mail):  {}, String 1 (Passwort): {}", mailPasswort[0], mailPasswort[1]);
+        logger.debug("checkAuthGetSpielerByMail. Mail: {}, Passwort): {}", mailPasswort[0], mailPasswort[1]);
         if(spielerRepo.existsSpielerEntityByMailAndPasswort(mailPasswort[0],mailPasswort[1]) && mailPasswort[0].equals(mail)) {
             return true;
         }
@@ -71,7 +71,7 @@ public abstract class AuthentificationService {
             return true;
         }
         String[] mailPasswort = getMailPasswort(base64);
-        logger.debug("String 0 (Mail):  {}, String 1 (Passwort): {}", mailPasswort[0], mailPasswort[1]);
+        logger.debug("checkAutGetGruppeBySpielerMail. Mail: {}, Passwort): {}", mailPasswort[0], mailPasswort[1]);
         if(spielerRepo.existsSpielerEntityByMailAndPasswort(mailPasswort[0],mailPasswort[1]) && mailPasswort[0].equals(mail)) {
             return true;
         }

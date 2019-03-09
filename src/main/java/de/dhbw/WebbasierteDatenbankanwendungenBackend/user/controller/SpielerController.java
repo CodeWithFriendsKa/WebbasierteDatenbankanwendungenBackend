@@ -5,6 +5,8 @@ import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.authentification.Auth
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.DbDuplikatException;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.SpielerNotFoundException;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.SpielerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -14,6 +16,8 @@ import org.springframework.web.server.ResponseStatusException;
 @CrossOrigin
 @RestController
 public class SpielerController {
+
+    private final Logger logger = LoggerFactory.getLogger(SpielerService.class);
 
     @Autowired
     SpielerService spielerService;
@@ -31,6 +35,7 @@ public class SpielerController {
      */
     @RequestMapping(method = RequestMethod.GET, value = "/spieler/{mail}")
     public SpielerEntity getSpielerByMail(@PathVariable(value = "mail") String mail, @RequestHeader(value = "Authorization") String authorization) {
+        logger.debug("GET-Request für getSpielerByMail empfangen, Authorization: {}", authorization);
         try {
             return spielerService.getSpielerByMail(mail, authorization);
         } catch (SpielerNotFoundException e) {
@@ -52,6 +57,7 @@ public class SpielerController {
      */
     @RequestMapping(method = RequestMethod.POST, value = "/spieler")
     public void postSpielerEntity(@Validated @RequestBody SpielerEntity spielerEntity) {
+        logger.debug("POST-Request für postSpielerEntity empfangen, Spieler: {}", spielerEntity);
         try {
             spielerService.postSpieler(spielerEntity);
         } catch (DbDuplikatException e) {

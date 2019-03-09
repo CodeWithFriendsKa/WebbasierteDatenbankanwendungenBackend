@@ -1,11 +1,14 @@
 package de.dhbw.WebbasierteDatenbankanwendungenBackend.user.controller;
 
+import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.authentification.AuthentificationService;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.authentification.AuthorizationException;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity.TrainerEntity;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.DbDuplikatException;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.TrainerNotFoundException;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.TrainerService;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.WrongCodeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -17,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 public class TrainerController {
 
+    private final Logger logger = LoggerFactory.getLogger(AuthentificationService.class);
     @Autowired
     TrainerService trainerService;
 
@@ -34,7 +38,7 @@ public class TrainerController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/trainer/{mail}")
     public TrainerEntity getTrainerByMail(@PathVariable(value = "mail") String mail , @RequestHeader(value = "Authorization") String authorization) {
-
+        logger.debug("GET-Request für getTrainerByMail empfangen, Authorization: {}", authorization);
         try {
             return trainerService.getTrainerByMail(mail, authorization);
         } catch (TrainerNotFoundException e) {
@@ -56,6 +60,7 @@ public class TrainerController {
      */
     @RequestMapping(method = RequestMethod.POST, value = "/trainer/{registerCode}")
     public void postTrainerEntity(@PathVariable(value = "registerCode") String registerCode, @Validated @RequestBody TrainerEntity trainerEntity) {
+        logger.debug("POST-Request für postTrainerEntity empfangen, Trainer: {}", trainerEntity);
         try {
             trainerService.postTrainer(trainerEntity, registerCode);
         } catch (DbDuplikatException e) {

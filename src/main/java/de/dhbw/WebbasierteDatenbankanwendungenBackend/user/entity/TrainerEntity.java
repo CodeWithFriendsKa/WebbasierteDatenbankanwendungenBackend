@@ -12,7 +12,7 @@ public class TrainerEntity {
     @Id
     @GeneratedValue
     private Long id;
-    @Pattern(regexp = "[\\w|-|.|_]{0,29}[\\w]@\\w[\\w|-]*\\.[a-z]{2,3}")
+    @Pattern(regexp = "[\\w|-|.|_]{0,29}[\\w]@\\w[\\w|-]*\\.[a-z]+")
     private String mail;
     //Passwort: Ziffern, Klein- und Großbuchstaben und Punkt-Zeichen (!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~) sind erlaubt
     //Mindestlänge für Passwort: 8 Zeichen, maximal: 40 Zeichen
