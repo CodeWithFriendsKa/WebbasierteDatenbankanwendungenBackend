@@ -12,8 +12,11 @@ public class SpielerEntity {
     @Id
     @GeneratedValue
     private Long id;
-
+    @Pattern(regexp = "[\\w|-|.|_]{0,29}[\\w]@\\w[\\w|-]*\\.[a-z]{2,3}")
     private String mail;
+    //Passwort: Ziffern, Klein- und Großbuchstaben und Punkt-Zeichen (!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~) sind erlaubt
+    //Mindestlänge für Passwort: 8 Zeichen, maximal: 40 Zeichen
+    @Pattern(regexp = "[\\w|\\p{Punct}]{8,40}")
     private String passwort;
 
     private SpielerEntity() {}

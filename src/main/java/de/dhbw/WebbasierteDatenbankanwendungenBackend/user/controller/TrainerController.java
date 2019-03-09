@@ -8,8 +8,10 @@ import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.TrainerServic
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.WrongCodeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
 
 @CrossOrigin
 @RestController
@@ -53,7 +55,7 @@ public class TrainerController {
      * Wird in der Serviceklasse eine "DuplikatException" geworfen, so wird diese hier abgefangen und dem Aufrufenden mitgeteilt, dass der Trainer bereits einen Account hat
      */
     @RequestMapping(method = RequestMethod.POST, value = "/trainer/{registerCode}")
-    public void postTrainerEntity(@PathVariable(value = "registerCode") String registerCode, @RequestBody TrainerEntity trainerEntity) {
+    public void postTrainerEntity(@PathVariable(value = "registerCode") String registerCode, @Validated @RequestBody TrainerEntity trainerEntity) {
         try {
             trainerService.postTrainer(trainerEntity, registerCode);
         } catch (DbDuplikatException e) {
@@ -62,6 +64,5 @@ public class TrainerController {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
         }
     }
-
 }
 
