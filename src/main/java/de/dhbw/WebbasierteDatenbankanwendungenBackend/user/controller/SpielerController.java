@@ -5,10 +5,16 @@ import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.authentification.Auth
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.DbDuplikatException;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.SpielerNotFoundException;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.SpielerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 
 @CrossOrigin
 @RestController
@@ -16,6 +22,8 @@ public class SpielerController {
 
     @Autowired
     SpielerService spielerService;
+
+    private final Logger logger = LoggerFactory.getLogger(SpielerController.class);
 
     /**
      * "getSpielerByMail" gibt einen Spieler anhand seiner Mailadresse zurück
@@ -50,7 +58,7 @@ public class SpielerController {
      * Wird in der Serviceklasse eine "DuplikatException" geworfen, so wird diese hier abgefangen und dem Aufrufenden mitgeteilt, dass der Spieler bereits einen Account hat
      */
     @RequestMapping(method = RequestMethod.POST, value = "/spieler")
-    public void postSpielerEntity(@RequestBody SpielerEntity spielerEntity) {
+    public void postSpielerEntity(@Valid @RequestBody SpielerEntity spielerEntity) {
         try {
             spielerService.postSpieler(spielerEntity);
         } catch (DbDuplikatException e) {

@@ -42,7 +42,6 @@ public class TrainerController {
         }
     }
 
-
     /**
      * "postTrainerEntity" gibt einen Trainer anhand seiner Mailadresse zurück
      * Diese Methode stellt eine "Öffnung" unseres Servers für eine Http-Anfrage zur Verfügung

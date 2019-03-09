@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolationException;
+
 @Service
 public class SpielerService extends AuthentificationService {
 
@@ -52,7 +54,10 @@ public class SpielerService extends AuthentificationService {
     public void postSpieler(SpielerEntity spielerEntity) throws DbDuplikatException {
         SpielerEntity spieler = spielerRepo.findSpielerEntityByMail(spielerEntity.getMail());
         if (spieler == null) {
-            spielerRepo.save(spielerEntity);
+            if (spielerRepo.save(spielerEntity) != null){
+                logger.info("Neuer Spieler in die Datenbank eingefügt: {}", spielerEntity);
+            }
+
         } else {
             throw new DbDuplikatException("Spieler mit Mail-Adresse bereits vorhanden.");
         }

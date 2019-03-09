@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class TrainerService extends AuthentificationService {
 
     //Zufälliger Code, der den Trainern zur Registrierung mitgeteilt wird
-    final private String registerCode = "uvysMXDWkPP2LJ4b";
+    final private String registerCode = "gruppeEinsIsTheBest";
 
     @Autowired
     TrainerRepo trainerRepo;

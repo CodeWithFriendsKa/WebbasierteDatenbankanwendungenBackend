@@ -3,6 +3,7 @@ package de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.repository.SpielerRepo;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 @Entity
@@ -11,6 +12,7 @@ public class SpielerEntity {
     @Id
     @GeneratedValue
     private Long id;
+
     private String mail;
     private String passwort;
 
