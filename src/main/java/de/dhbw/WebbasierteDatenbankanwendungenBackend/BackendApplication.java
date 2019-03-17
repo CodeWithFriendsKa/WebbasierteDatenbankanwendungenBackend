@@ -107,8 +107,8 @@ public class BackendApplication {
 			spielerListe2.add(spielerRepo.findSpielerEntityByMail("max4.mustermann@dhbw.de"));
 			spielerListe2.add(spielerRepo.findSpielerEntityByMail("max5.mustermann@dhbw.de"));
 			GruppeEntity g2 = new GruppeEntity(
-					"Platz 1",
-					"Montag 16:00 - 18:00 Uhr",
+					"Platz 3",
+					"Mittwoch 14:00 - 17:00 Uhr",
 					spielerListe2,
 					trainerRepo.findTrainerEntityByMail("tim2.trainer@dhbw.de")
 			);
