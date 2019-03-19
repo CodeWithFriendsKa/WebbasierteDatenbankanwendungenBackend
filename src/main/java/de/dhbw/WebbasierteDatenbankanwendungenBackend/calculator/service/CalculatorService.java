@@ -32,7 +32,6 @@ public class CalculatorService extends AuthentificationService {
             throw new AuthorizationException("Du hast nicht die Berechtigung alle Gruppen zu holen");
         }
     }
-
     public GruppeEntity findGruppeBySpielerMail(String mail, String authorization) throws GruppeNotFoundException, AuthorizationException {
         if (this.checkAutGetGruppeBySpielerMail(authorization, mail)) {
             var gruppen = gruppeRepo.findAll();
@@ -47,6 +46,23 @@ public class CalculatorService extends AuthentificationService {
             throw new GruppeNotFoundException("Gruppe des Spielers wurde nicht gefunden!");
         } else {
             throw new AuthorizationException("Du hast nicht die Berechtigung diese Gruppe zu holen");
+        }
+    }
+    public void optimize(String authorization) throws AuthorizationException {
+        if (this.checkAuthTrainer(authorization)){
+
+        }
+        else {
+            throw new AuthorizationException("Du hast nicht die Berechtigung den Algorithmus zu starten!");
+        }
+    }
+    public int[] getPossibleTrainingTimes(String authorization) throws AuthorizationException {
+        if (this.checkAuthSpieler(authorization)){
+            int[] a = {1,2};
+            return a;
+        }
+        else {
+            throw new AuthorizationException("Du hast nicht die Berechtigung den Algorithmus zu starten!");
         }
     }
 }

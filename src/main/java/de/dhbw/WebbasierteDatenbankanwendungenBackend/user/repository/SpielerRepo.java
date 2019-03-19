@@ -9,6 +9,8 @@ public interface SpielerRepo extends CrudRepository<SpielerEntity,Long> {
 
     SpielerEntity findSpielerEntityByMail(String mail);
 
+    SpielerEntity findSpielerEntityByName(String name);
+
     boolean existsSpielerEntityByMailAndPasswort(String mail, String passwort);
 
     @Override

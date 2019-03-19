@@ -37,23 +37,23 @@ public class BackendApplication {
 	@Bean
 	protected CommandLineRunner demoSpielerEinfügen(SpielerRepo spielerRepo) {
 		return args -> {
-			SpielerEntity s1 = new SpielerEntity("max1.mustermann@dhbw.de", "12345678");
+			SpielerEntity s1 = new SpielerEntity("max1.mustermann@dhbw.de", "12345678", 21, "max", "mustermann",'m');
 			spielerRepo.save(s1);
 			logger.debug("Demospieler eingefügt: {}",spielerRepo.findSpielerEntityByMail("max1.mustermann@dhbw.de"));
 
-			SpielerEntity s2 = new SpielerEntity("max2.mustermann@dhbw.de", "12345678");
+			SpielerEntity s2 = new SpielerEntity("max2.mustermann@dhbw.de", "12345678", 21, "max", "mustermann",'m');
 			spielerRepo.save(s2);
 			logger.debug("Demospieler eingefügt: {}",spielerRepo.findSpielerEntityByMail("max2.mustermann@dhbw.de"));
 
-			SpielerEntity s3 = new SpielerEntity("max3.mustermann@dhbw.de", "12345678");
+			SpielerEntity s3 = new SpielerEntity("max3.mustermann@dhbw.de", "12345678", 21, "max", "mustermann",'m');
 			spielerRepo.save(s3);
 			logger.debug("Demospieler eingefügt: {}",spielerRepo.findSpielerEntityByMail("max3.mustermann@dhbw.de"));
 
-			SpielerEntity s4 = new SpielerEntity("max4.mustermann@dhbw.de", "12345678");
+			SpielerEntity s4 = new SpielerEntity("max4.mustermann@dhbw.de", "12345678", 21, "max", "mustermann",'m');
 			spielerRepo.save(s4);
 			logger.debug("Demospieler eingefügt: {}",spielerRepo.findSpielerEntityByMail("max4.mustermann@dhbw.de"));
 
-			SpielerEntity s5 = new SpielerEntity("max5.mustermann@dhbw.de", "12345678");
+			SpielerEntity s5 = new SpielerEntity("max5.mustermann@dhbw.de", "12345678", 21, "max", "mustermann",'m');
 			spielerRepo.save(s5);
 			logger.debug("Demospieler eingefügt: {}",spielerRepo.findSpielerEntityByMail("max5.mustermann@dhbw.de"));
 		};

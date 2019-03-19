@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.ConstraintViolationException;
 
@@ -61,6 +63,20 @@ public class SpielerService extends AuthentificationService {
 
         } else {
             throw new DbDuplikatException("Spieler mit Mail-Adresse bereits vorhanden.");
+        }
+    }
+    public void putSpieler(SpielerEntity spielerEntity, String authorization) throws AuthorizationException, SpielerNotFoundException {
+        if (this.checkAuthGetSpielerByMail(authorization, spielerEntity.getMail())){
+            SpielerEntity spieler = spielerRepo.findSpielerEntityByMail(spielerEntity.getMail());
+            if (spieler != null) {
+                spieler.setTrainingCount(spielerEntity.getTrainingCount());
+                spieler.setTrainingTimes(spielerEntity.getTrainingTimes());
+                spielerRepo.save(spieler);
+            } else {
+                throw new SpielerNotFoundException("Der Spieler wurde nicht in der Datenbank gefunden");
+            }
+        } else {
+            throw new AuthorizationException("Du hast nicht die Berechtigung!");
         }
     }
 }

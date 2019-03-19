@@ -64,5 +64,15 @@ public class SpielerController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
-
+    @RequestMapping(method = RequestMethod.PUT, value = "/spieler")
+    public void putSpieler(@RequestBody SpielerEntity spielerEntity, @RequestHeader(value = "Authorization") String authorization){
+        logger.debug("PUT-Request für Spieler empfangen, Authorization: {}, RequestBody: {}", authorization, spielerEntity);
+        try {
+            spielerService.putSpieler(spielerEntity, authorization);
+        } catch (SpielerNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        }
+    }
 }

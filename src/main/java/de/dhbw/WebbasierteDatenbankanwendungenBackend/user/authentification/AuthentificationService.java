@@ -59,6 +59,17 @@ public abstract class AuthentificationService {
         else return false;
     }
 
+    protected boolean checkAuthSpieler(String base64){
+        if (checkAuthTrainer(base64)){
+            return true;
+        }
+        String[] mailPasswort = getMailPasswort(base64);
+        logger.debug("checkAuthGetSpielerByMail. Mail: {}, Passwort): {}", mailPasswort[0], mailPasswort[1]);
+        if(spielerRepo.existsSpielerEntityByMailAndPasswort(mailPasswort[0], mailPasswort[1])) {
+            return true;
+        }
+        else return false;
+    }
     /***
      * Diese Methode checkt, ob der base64 String, welche ja eine Mischung aus Mail und Passwort ist,
      * auch wirklich ein Trainer (Admin) oder ein Spieler ist, der in der Datenbank gespeichert ist

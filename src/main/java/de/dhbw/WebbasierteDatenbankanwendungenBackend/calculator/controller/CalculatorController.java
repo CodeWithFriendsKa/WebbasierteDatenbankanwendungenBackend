@@ -47,4 +47,24 @@ public class CalculatorController {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
         }
     }
+    @RequestMapping(method = RequestMethod.POST, value = "/startalgo")
+    public void startAlgo(@RequestHeader(value = "Authorozation") String authorization){
+        try {
+            logger.debug("startALgo: eingehender Request. {}", authorization);
+            calculatorService.optimize(authorization);
+        }
+        catch (AuthorizationException e){
+            throw  new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        }
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/possibletimes")
+    public int[] getPossibleTrainingTimes(@RequestHeader(value = "Authorization") String authorization){
+        try {
+            logger.debug("startALgo: eingehender Request. {}", authorization);
+            return calculatorService.getPossibleTrainingTimes(authorization);
+        }
+        catch (AuthorizationException e){
+            throw  new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        }
+    }
 }
