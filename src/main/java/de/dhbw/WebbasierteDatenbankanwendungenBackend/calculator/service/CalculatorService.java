@@ -58,7 +58,7 @@ public class CalculatorService extends AuthentificationService {
     }
     public int[] getPossibleTrainingTimes(String authorization) throws AuthorizationException {
         if (this.checkAuthSpieler(authorization)){
-            int[] a = {1,2};
+            int[] a = {0,0,1,0,1,0,1,0};
             return a;
         }
         else {
