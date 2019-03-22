@@ -1,4 +1,4 @@
-package de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.algorithm;
+package de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.algorithm.algo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +18,7 @@ public class SpielerModel {
     private static ArrayList<SpielerModel> alleSpielerMehrTraining = new ArrayList<>();
     private SpielerStaerkeModel spielerStaerkeModel = SpielerStaerkeModel.NICHTVORHANDEN;
 
-    public SpielerModel(String name,int[] zeiten,int alter, char geschlecht, int trainingsAnzahl) {
+    public SpielerModel(String name, int[] zeiten, int alter, char geschlecht, int trainingsAnzahl) {
         this.name = name;
         this.zeiten = zeiten;
         this.alter = alter;
@@ -55,7 +55,7 @@ public class SpielerModel {
     public char getGeschlecht() {return this.geschlecht;}
     public int getTrainingsAnzahl() {return this.trainingsAnzahl;}
     public int getID() {return id;}
-    public static int getZeitenArraygroesse() {return zeitenArraygroesse;}
+    public static int getZeitenArrayGroesse() {return zeitenArraygroesse;}
     public String getInfo() {String infoString = ""+this.name+" "+this.alter+" "+this.geschlecht;return infoString;}
 
     @Override

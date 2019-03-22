@@ -1,4 +1,4 @@
-package de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.algorithm;
+package de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.algorithm.algo;
 
 enum SpielerStaerkeModel {
     //Hier wird eine Variable erstell mit der die Berechnung der Spielerstärke vereinfacht wird

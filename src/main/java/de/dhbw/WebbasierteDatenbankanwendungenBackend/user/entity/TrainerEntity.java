@@ -19,12 +19,22 @@ public class TrainerEntity {
     @Pattern(regexp = "[\\w|\\p{Punct}]{8,40}")
     private String passwort;
 
+    private int age;
+    private String name;
+    private String prename;
+    private char sex;
+    private int trainingCount;
+    private int[] minTrainingTimes;
+    private int prio;
+
     private TrainerEntity() {}
 
     public TrainerEntity(String mail, String passwort) {
         this.mail = mail;
         this.passwort = passwort;
     }
+
+
 
     public Long getId() {
         return id;

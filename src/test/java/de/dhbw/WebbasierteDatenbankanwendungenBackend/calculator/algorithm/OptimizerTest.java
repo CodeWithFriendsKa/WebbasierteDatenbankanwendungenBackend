@@ -1,5 +1,6 @@
 package de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.algorithm;
 
+import de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.algorithm.algo.SpielerModel;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity.SpielerEntity;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.repository.SpielerRepo;
 import org.junit.Before;

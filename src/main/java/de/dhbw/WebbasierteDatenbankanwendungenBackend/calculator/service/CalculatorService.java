@@ -1,5 +1,6 @@
 package de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.service;
 
+import de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.algorithm.Optimizer;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.entity.GruppeEntity;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.repository.GruppeRepo;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.authentification.AuthentificationService;
@@ -18,6 +19,8 @@ public class CalculatorService extends AuthentificationService {
     @Autowired
     GruppeRepo gruppeRepo;
     private final Logger logger = LoggerFactory.getLogger(CalculatorService.class);
+    @Autowired
+    private Optimizer optimizer;
 
     public List<GruppeEntity> findAllGruppen(String authorization) throws GruppeNotFoundException, AuthorizationException {
         if (this.checkAuthTrainer(authorization)) {
@@ -50,7 +53,7 @@ public class CalculatorService extends AuthentificationService {
     }
     public void optimize(String authorization) throws AuthorizationException {
         if (this.checkAuthTrainer(authorization)){
-
+            optimizer.startAlgo();
         }
         else {
             throw new AuthorizationException("Du hast nicht die Berechtigung den Algorithmus zu starten!");
