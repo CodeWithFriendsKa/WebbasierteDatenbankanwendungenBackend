@@ -12,5 +12,7 @@ public interface TrainerRepo extends CrudRepository<TrainerEntity,Long> {
     @Override
     List<TrainerEntity> findAll();
 
+    TrainerEntity findTrainerEntityByName(String name);
+
     boolean existsTrainerEntityByMailAndPasswort(String mail, String passwort);
 }

@@ -1,6 +1,8 @@
 package de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.algorithm;
 
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.algorithm.algo.*;
+import de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.entity.GruppeEntity;
+import de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.repository.GruppeRepo;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity.SpielerEntity;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity.TrainerEntity;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.repository.SpielerRepo;
@@ -20,9 +22,19 @@ public class Optimizer {
     private SpielerRepo spielerRepo;
     @Autowired
     private TrainerRepo trainerRepo;
+    @Autowired
+    private GruppeRepo gruppeRepo;
+    private GruppeEntity zeitEndModelToGruppeEntity(ZeitEndModel model){
+        return new GruppeEntity(
+                model.getPlatz().getName(),
+                Integer.toString(model.getZeit()),
+                model.getGruppe().getSpieler().stream().map(s -> this.spielerModelToEntity(s)).collect(Collectors.toList()),
+                this.trainerModelToEntity(model.getTrainer())
+        );
+    }
     //todo name durch mail tauschen, da die mail eindeutig ist -> wenn Emil Änderungen vorgenommen hat
     public SpielerEntity spielerModelToEntity(SpielerModel spielerModel){
-        var entity = spielerRepo.findSpielerEntityByMail(spielerModel.getName());
+        var entity = spielerRepo.findSpielerEntityByName(spielerModel.getName());
         entity.setTrainingTimes(spielerModel.getZeiten());
         entity.setTrainingCount(spielerModel.getTrainingsAnzahl());
         return entity;
@@ -37,7 +49,7 @@ public class Optimizer {
         );
     }
     public TrainerEntity trainerModelToEntity(TrainerModel trainerModel){
-        var entity = trainerRepo.findTrainerEntityByMail(trainerModel.getName());
+        var entity = trainerRepo.findTrainerEntityByName(trainerModel.getName());
         entity.setMinTrainingTimes(trainerModel.getMinAnzTraining());
         entity.setTrainingCount(trainerModel.getAktAnzTraining());
         return entity;
@@ -71,6 +83,9 @@ public class Optimizer {
         ArrayList<Platz> plaetze = TestList.testListPlaetze();
         AlgoBibliothek.ErstellePlan(spieler, trainer, plaetze);
         ArrayList<ZeitEndModel> vorMoeg = AlgoBibliothek.Algorythmus(spieler, trainer, plaetze);
+
+        saveNewGruppen(getGruppenEntity(vorMoeg));
+
         System.out.println("anz moeglichkeiten: " + AlgoBibliothek.gruppenZuordnen(spieler, trainer, plaetze).size());
         for (int i = 0; i < vorMoeg.size(); i++) {
             System.out.println("Stunde: " + ZeitenModel.intToString(vorMoeg.get(i).getZeit()) + "\n");
@@ -116,5 +131,12 @@ public class Optimizer {
         logger.debug("DEMODATA_FROM_DATABASE_SAVE");
         var b  = trainerRepo.findAll().stream().map(model -> trainerEntityToModel(model)).collect(Collectors.toList());
         return b;
+    }
+    private List<GruppeEntity> getGruppenEntity(List<ZeitEndModel> models){
+        return models.stream().map(m -> this.zeitEndModelToGruppeEntity(m)).collect(Collectors.toList());
+    }
+    private void saveNewGruppen(List<GruppeEntity> gruppeEntities){
+        gruppeRepo.deleteAll();
+        gruppeRepo.saveAll(gruppeEntities);
     }
 }

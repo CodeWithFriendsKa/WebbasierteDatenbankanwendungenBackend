@@ -8,4 +8,5 @@ public interface GruppeRepo extends CrudRepository<GruppeEntity, Long> {
 
     @Override
     List<GruppeEntity> findAll();
+
 }
