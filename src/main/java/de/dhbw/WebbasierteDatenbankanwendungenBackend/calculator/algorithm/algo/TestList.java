@@ -11,6 +11,8 @@ public class TestList {
 	@SuppressWarnings("unused")
 	public static ArrayList<SpielerModel> testListSpieler() {
 
+		System.out.println("Testspieler initialisiert und verwendet");
+
 		ArrayList<SpielerModel> alleSpieler = new ArrayList<SpielerModel>();
 
 					//	1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
@@ -194,7 +196,7 @@ public class TestList {
 		SpielerModel spieler9 = new SpielerModel("Karl", data9, 5, 'm', 1);
 		SpielerModel spieler10 = new SpielerModel("Jojo", data10, 6, 'm', 1);
 		 
-
+/*
 		SpielerModel spieler11 = new SpielerModel("Anna", data11, 16, 'w', 1);
 		SpielerModel spieler20 = new SpielerModel("Soraka", data12, 15, 'w', 1);
 		SpielerModel spieler12 = new SpielerModel("Anne", data13, 15, 'w', 1);
@@ -205,7 +207,7 @@ public class TestList {
 		SpielerModel spieler17 = new SpielerModel("Kayle", data18, 11, 'w', 1);
 		SpielerModel spieler18 = new SpielerModel("Annie", data19, 5, 'w', 1);
 		SpielerModel spieler19 = new SpielerModel("Lux", data20, 5, 'w', 1);
-
+*/
 		alleSpieler.add(spieler1);
 		alleSpieler.add(spieler2);
 		alleSpieler.add(spieler3);
@@ -216,6 +218,7 @@ public class TestList {
 		alleSpieler.add(spieler8);
 		alleSpieler.add(spieler9);
 		alleSpieler.add(spieler10);
+		/*
 		alleSpieler.add(spieler11);
 		alleSpieler.add(spieler12);
 		alleSpieler.add(spieler13);
@@ -226,7 +229,7 @@ public class TestList {
 		alleSpieler.add(spieler18);
 		alleSpieler.add(spieler19);
 		alleSpieler.add(spieler20);
-
+*/
 		return alleSpieler;
 	}
 
@@ -265,6 +268,8 @@ public class TestList {
 		allTrainer.add(Trainer1);
 		allTrainer.add(Trainer2);
 		allTrainer.add(Trainer3);
+
+
 
 		return allTrainer;
 

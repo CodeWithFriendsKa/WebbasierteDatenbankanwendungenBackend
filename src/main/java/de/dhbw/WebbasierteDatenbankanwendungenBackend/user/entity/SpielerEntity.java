@@ -22,6 +22,8 @@ public class SpielerEntity {
     private String prename;
     private char sex;
     private int trainingCount;
+
+    @Column(length = Integer.MAX_VALUE)
     private int[] trainingTimes;
 
     private SpielerEntity() {}

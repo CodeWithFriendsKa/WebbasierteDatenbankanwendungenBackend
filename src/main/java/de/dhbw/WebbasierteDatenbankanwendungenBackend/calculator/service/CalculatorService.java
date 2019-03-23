@@ -25,7 +25,7 @@ public class CalculatorService extends AuthentificationService {
     public List<GruppeEntity> findAllGruppen(String authorization) throws GruppeNotFoundException, AuthorizationException {
         if (this.checkAuthTrainer(authorization)) {
             var gruppen = gruppeRepo.findAll();
-            if (gruppen != null) {
+            if (!gruppen.isEmpty()) {
                 logger.debug("findAllGruppen: Gruppe/n wurde/n gefunden");
                 return gruppen;
             } else {

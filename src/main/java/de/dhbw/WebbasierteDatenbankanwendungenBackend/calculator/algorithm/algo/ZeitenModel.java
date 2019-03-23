@@ -98,8 +98,14 @@ public class ZeitenModel {
 		return id;
 	}
 
-
-
-
-
+	@Override
+	public String toString() {
+		return "ZeitenModel{" +
+				"id=" + id +
+				", zeit=" + zeit +
+				", trainer=" + trainer +
+				", platz=" + platz +
+				", gruppen=" + gruppen +
+				'}';
+	}
 }

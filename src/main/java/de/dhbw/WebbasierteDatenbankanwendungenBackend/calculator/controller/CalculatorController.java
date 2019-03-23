@@ -48,7 +48,7 @@ public class CalculatorController {
         }
     }
     @RequestMapping(method = RequestMethod.POST, value = "/startalgo")
-    public void startAlgo(@RequestHeader(value = "Authorozation") String authorization){
+    public void startAlgo(@RequestHeader(value = "Authorization") String authorization){
         try {
             logger.debug("startALgo: eingehender Request. {}", authorization);
             calculatorService.optimize(authorization);

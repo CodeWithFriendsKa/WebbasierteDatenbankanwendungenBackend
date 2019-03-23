@@ -1,6 +1,7 @@
 package de.dhbw.WebbasierteDatenbankanwendungenBackend.calculator.algorithm.algo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TrainerModel {
 	
@@ -48,6 +49,16 @@ public class TrainerModel {
 		return alleTrainer;
 	}
 
+	public static void deleteAlleTrainer() {
+		while(alleTrainer.size() > 0) {
+			alleTrainer.remove(0);
+		}
+	}
+
+	public static void resetZaehler() {
+		zaehler = 0;
+	}
+
 	public void setMinAnzTraining(int minAnzTraining) {
 		this.minAnzTraining = minAnzTraining;
 	}
@@ -82,6 +93,30 @@ public class TrainerModel {
 		return id;
 	}
 
+	public static int getZaehler() {
+		return zaehler;
+	}
+
+	public static void setZaehler(int zaehler) {
+		TrainerModel.zaehler = zaehler;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setPrio(int prio) {
+		this.prio = prio;
+	}
+
+	public static void setAlleTrainer(ArrayList<TrainerModel> alleTrainer) {
+		TrainerModel.alleTrainer = alleTrainer;
+	}
+
 	public ArrayList<ArrayList<PauseModel>> getPauseProTag() {
 		return pauseProTag;
 	}
@@ -91,6 +126,17 @@ public class TrainerModel {
 	}
 
 
-
-
+	@Override
+	public String toString() {
+		return "TrainerModel{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", zeiten=" + Arrays.toString(zeiten) +
+				", prio=" + prio +
+				", minTrainingProTag=" + minTrainingProTag +
+				", minAnzTraining=" + minAnzTraining +
+				", aktAnzTraining=" + aktAnzTraining +
+				", pauseProTag=" + pauseProTag +
+				'}';
+	}
 }
