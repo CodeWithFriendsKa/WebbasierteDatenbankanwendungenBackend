@@ -2,6 +2,7 @@ package de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service;
 
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.authentification.AuthentificationService;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.authentification.AuthorizationException;
+import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity.SpielerEntity;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity.TrainerEntity;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.repository.TrainerRepo;
 import org.slf4j.Logger;
@@ -74,5 +75,20 @@ public class TrainerService extends AuthentificationService {
             throw new WrongCodeException("Der korrekte Registrierungscode für Trainer muss in die URL-Leiste (.../trainer/<CODE> ) eingetragen werden.");
         }
 
+    }
+
+    public void putTrainer(TrainerEntity trainerEntity, String authorization) throws AuthorizationException, SpielerNotFoundException {
+        if (this.checkAuthGetSpielerByMail(authorization, trainerEntity.getMail())){
+            TrainerEntity trainer = trainerRepo.findTrainerEntityByMail(trainerEntity.getMail());
+            if (trainer != null) {
+                trainer.setTrainingCount(trainerEntity.getTrainingCount());
+                trainer.setZeiten(trainerEntity.getZeiten());
+                trainerRepo.save(trainer);
+            } else {
+                throw new SpielerNotFoundException("Der Spieler wurde nicht in der Datenbank gefunden");
+            }
+        } else {
+            throw new AuthorizationException("Du hast nicht die Berechtigung!");
+        }
     }
 }

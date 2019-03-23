@@ -2,11 +2,9 @@ package de.dhbw.WebbasierteDatenbankanwendungenBackend.user.controller;
 
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.authentification.AuthentificationService;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.authentification.AuthorizationException;
+import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity.SpielerEntity;
 import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.entity.TrainerEntity;
-import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.DbDuplikatException;
-import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.TrainerNotFoundException;
-import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.TrainerService;
-import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.WrongCodeException;
+import de.dhbw.WebbasierteDatenbankanwendungenBackend.user.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +64,18 @@ public class TrainerController {
         } catch (DbDuplikatException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (WrongCodeException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/trainer")
+    public void putTrainer(@RequestBody TrainerEntity trainerEntity, @RequestHeader(value = "Authorization") String authorization){
+        logger.debug("PUT-Request für Trainer empfangen, Authorization: {}, RequestBody: {}", authorization, trainerEntity);
+        try {
+            trainerService.putTrainer(trainerEntity, authorization);
+        } catch (SpielerNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
         }
     }
